@@ -28,6 +28,10 @@ ENV/
 .venv
 env.bak/
 venv.bak/
+**/venv/
+**/env/
+**/.env/
+**/.venv/
 
 # IDE
 .idea/
@@ -48,6 +52,13 @@ outputs/
 *.hdf5
 *.ckpt
 *.pkl
+
+# Large model files
+yolov5x.pt
+yolov8x.pt
+*.dylib
+libtorch_cpu.dylib
+libtorch_cuda.dylib
 
 # Logs
 *.log
