@@ -23,6 +23,7 @@ wheels/
 # Virtual Environment
 venv/
 ENV/
+env/
 
 # IDE
 .idea/
@@ -34,8 +35,25 @@ ENV/
 .DS_Store
 .AppleDouble
 .LSOverride
+._*
 
 # Project specific
-cache/
-outputs/
+data/videos/
+*.pt
+*.pth
+*.h5
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.ico
+
+# Logs
 *.log
+logs/
