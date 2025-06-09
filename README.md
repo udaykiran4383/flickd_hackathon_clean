@@ -1,83 +1,90 @@
-# Flickd AI Pipeline
+# Flickd AI Hackathon
 
-A smart tagging and vibe classification engine for fashion videos, built for the Flickd AI Hackathon.
+A video-based fashion item detection and vibe classification system.
 
 ## Features
 
-- Object detection using YOLOv8
-- Product matching using CLIP and FAISS
-- Vibe classification using DistilBERT
-- RESTful API using FastAPI
+- Video frame extraction
+- Fashion item detection using DeepFashion2 YOLOv8
+- Product matching using CLIP embeddings
+- Vibe classification using rule-based NLP
+- JSON output generation
 
 ## Setup
 
-1. Install dependencies:
+1. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Download required models:
+3. Download the DeepFashion2 model:
 ```bash
-python -c "from transformers import AutoTokenizer, AutoModelForSequenceClassification; AutoTokenizer.from_pretrained('distilbert-base-uncased'); AutoModelForSequenceClassification.from_pretrained('distilbert-base-uncased')"
+wget https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt
 ```
 
-3. Download YOLOv8 weights:
+4. Pre-compute product embeddings:
 ```bash
-python -c "from ultralytics import YOLO; YOLO('yolov8n.pt')"
+python scripts/precompute_embeddings.py
 ```
+
+## Usage
+
+1. Place your videos in the `videos/` directory
+2. Run the test script:
+```bash
+python test_multiple_videos.py
+```
+
+3. Check the results in `test_results/`
 
 ## Project Structure
 
 ```
 .
 ├── data/
-│   ├── vibeslist.json    # List of supported vibes
-│   ├── images.csv        # Product catalog
-│   └── videos/           # Sample videos
+│   ├── catalog.csv
+│   ├── vibes_list.json
+│   └── product_embeddings.json
 ├── src/
-│   ├── object_detection.py
-│   ├── product_matcher.py
+│   ├── object_detector.py
+│   ├── clip_processor.py
 │   ├── vibe_classifier.py
-│   ├── pipeline.py
-│   └── api.py
+│   └── product_matcher.py
+├── scripts/
+│   └── precompute_embeddings.py
+├── test_videos/
+│   └── *.mp4
+├── test_results/
+│   └── *.json
 ├── requirements.txt
 └── README.md
 ```
 
-## Usage
+## Models Used
 
-1. Start the API server:
-```bash
-python -m src.api
-```
-
-2. Send a POST request to `/process-video` with:
-   - `video`: Video file
-   - `caption`: Video caption (optional)
-   - `hashtags`: JSON array of hashtags (optional)
-
-Example using curl:
-```bash
-curl -X POST "http://localhost:8000/process-video" \
-     -H "accept: application/json" \
-     -H "Content-Type: multipart/form-data" \
-     -F "video=@path/to/video.mp4" \
-     -F "caption=Summer fashion look" \
-     -F "hashtags=[\"fashion\", \"summer\", \"style\"]"
-```
+- DeepFashion2 YOLOv8 (mAP₅₀ = 0.849)
+- CLIP ViT-B/32 for image embeddings
+- FAISS for fast similarity search
 
 ## Output Format
 
 ```json
 {
-    "video_id": "video_name",
-    "vibes": ["Coquette", "Clean Girl"],
+  "video_id": "reel_001",
+  "vibes": ["Coquette", "Clean Girl"],
   "products": [
     {
-            "type": "dress",
-      "match_type": "similar",
-            "matched_product_id": "prod_123",
-      "confidence": 0.85
+      "type": "top",
+      "color": "white",
+      "matched_product_id": "prod_002",
+      "match_type": "exact",
+      "confidence": 0.93
     }
   ]
 }

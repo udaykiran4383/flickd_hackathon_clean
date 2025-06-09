@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Flickd API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Process Video",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "video",
+              "type": "file",
+              "src": "/path/to/your/video.mp4",
+              "description": "The video file to process"
+            },
+            {
+              "key": "caption",
+              "value": "Example caption",
+              "type": "text",
+              "description": "Optional caption for the video"
+            },
+            {
+              "key": "hashtags",
+              "value": "[\"fashion\", \"summer\", \"style\"]",
+              "type": "text",
+              "description": "Optional hashtags as JSON array string"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8000/process-video",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["process-video"]
+        },
+        "description": "Process a video to detect objects, match products, and classify vibes.\n\nParameters:\n- video: Video file to process (required)\n- caption: Optional caption for the video\n- hashtags: Optional hashtags as JSON array string (e.g., [\"fashion\", \"summer\"])"
+      },
+      "response": [
+        {
+          "name": "Example Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "video",
+                  "type": "file",
+                  "src": "/path/to/your/video.mp4"
+                },
+                {
+                  "key": "caption",
+                  "value": "Example caption",
+                  "type": "text"
+                },
+                {
+                  "key": "hashtags",
+                  "value": "[\"fashion\", \"summer\", \"style\"]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8000/process-video",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["process-video"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"video_id\": \"2025-05-31_14-01-37_UTC\",\n  \"vibes\": [\"Coquette\", \"Clean Girl\"],\n  \"products\": [\n    {\n      \"type\": \"dress\",\n      \"color\": \"blue\",\n      \"matched_product_id\": \"12345\",\n      \"match_type\": \"exact\",\n      \"confidence\": 0.95\n    },\n    {\n      \"type\": \"shirt\",\n      \"color\": \"white\",\n      \"matched_product_id\": \"67890\",\n      \"match_type\": \"similar\",\n      \"confidence\": 0.85\n    }\n  ]\n}"
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,1102 @@
+{
+  "video_id": "2025-05-27_13-46-16_UTC",
+  "vibes": [
+    "Coquette",
+    "Clean Girl",
+    "Cottagecore"
+  ],
+  "products": [
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6470227579235839
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6162244969095143
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.611599015373623
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6101912594182538
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6083580216105191
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6623589085514302
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6396555809583577
+    },
+    {
+      "type": "trousers",
+      "color": "Grey",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6256527838449484
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6255450798103143
+    },
+    {
+      "type": "trousers",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6210020201460871
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.652864095462546
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6109891782707412
+    },
+    {
+      "type": "vest",
+      "color": "Khaki",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6040810683135348
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6468697835541499
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6201146456242155
+    },
+    {
+      "type": "trousers",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6189674006459801
+    },
+    {
+      "type": "trousers",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6111105586648566
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6094180446806612
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6373377320733074
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.612679814663912
+    },
+    {
+      "type": "vest",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6084913793509911
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6014499931259134
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6001855947295104
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6487823605860954
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6191127387679
+    },
+    {
+      "type": "trousers",
+      "color": "Chocolate Brown",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6139634204447296
+    },
+    {
+      "type": "trousers",
+      "color": "Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6122379972043304
+    },
+    {
+      "type": "trousers",
+      "color": "Olive",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6113293164251473
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.649163330285345
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6464798168686557
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6314062474655351
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Brown",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6294270640473654
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6284522992790891
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6197265695342027
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.617698557044263
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Red",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6065798879687366
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6062332273537929
+    },
+    {
+      "type": "short_sleeved_shirt",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6035440027449621
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6547741306157857
+    },
+    {
+      "type": "trousers",
+      "color": "Khaki",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6140224271759454
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6096366333374831
+    },
+    {
+      "type": "trousers",
+      "color": "Navy Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6074080306584143
+    },
+    {
+      "type": "trousers",
+      "color": "Navy Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6028054218230862
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6368153402767592
+    },
+    {
+      "type": "vest",
+      "color": "Olive",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6192635395115651
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.614415450388523
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6124621017258819
+    },
+    {
+      "type": "vest",
+      "color": "Grey",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.612211523163535
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.627166982246061
+    },
+    {
+      "type": "vest",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6147776394726062
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6085293850947222
+    },
+    {
+      "type": "vest",
+      "color": "Red",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6057922555420323
+    },
+    {
+      "type": "vest",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6050470305581421
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6480020381076066
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6191440628974662
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.617137447544728
+    },
+    {
+      "type": "trousers",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6124807491057502
+    },
+    {
+      "type": "trousers",
+      "color": "Grey",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6038355390124671
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6487781958885076
+    },
+    {
+      "type": "trousers",
+      "color": "Khaki",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6103550418344482
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6018564001386293
+    },
+    {
+      "type": "trousers",
+      "color": "Navy Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6011711596498626
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6394931263664382
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.632605405948375
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6232351494600952
+    },
+    {
+      "type": "vest",
+      "color": "Grey",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6169105442690035
+    },
+    {
+      "type": "vest",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6168674698795181
+    },
+    {
+      "type": "vest",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6372571910245473
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6359595327673769
+    },
+    {
+      "type": "vest",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.628311955697181
+    },
+    {
+      "type": "vest",
+      "color": "Red",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6281460155418179
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6268652991163021
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6506313586936815
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6105338199248642
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6073738588672039
+    },
+    {
+      "type": "trousers",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6032025374664237
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6243627317298566
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6204068133007414
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6256859166503258
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6126624527874012
+    },
+    {
+      "type": "vest",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6098477086985802
+    },
+    {
+      "type": "vest",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6037747147860678
+    },
+    {
+      "type": "skirt",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6111062180504692
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6323677508283772
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.61694700001846
+    },
+    {
+      "type": "vest",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6106769133757015
+    },
+    {
+      "type": "vest",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.608098005419277
+    },
+    {
+      "type": "vest",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6064786280579566
+    },
+    {
+      "type": "skirt",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.622564216855877
+    },
+    {
+      "type": "skirt",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6054305668456099
+    },
+    {
+      "type": "vest_dress",
+      "color": "Olive",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6396178064986803
+    },
+    {
+      "type": "vest_dress",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6379603055158158
+    },
+    {
+      "type": "vest_dress",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6302109874295243
+    },
+    {
+      "type": "vest_dress",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6278579810043315
+    },
+    {
+      "type": "vest_dress",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6212272970950842
+    },
+    {
+      "type": "long_sleeved_shirt",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.611175697545329
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6118508554605664
+    },
+    {
+      "type": "trousers",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6100400973389948
+    },
+    {
+      "type": "trousers",
+      "color": "Khaki",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6089355394298379
+    },
+    {
+      "type": "trousers",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6044423436367383
+    },
+    {
+      "type": "trousers",
+      "color": "Red",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6042130795879952
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6242711271679021
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6116759215927389
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6107688628021177
+    },
+    {
+      "type": "trousers",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6008471560064496
+    },
+    {
+      "type": "skirt",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6225273021479012
+    },
+    {
+      "type": "skirt",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6081133902836497
+    },
+    {
+      "type": "skirt",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6062245308667729
+    },
+    {
+      "type": "skirt",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6023441177763078
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6119353913677115
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6761571954761527
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6246048709319814
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6232448270453791
+    },
+    {
+      "type": "trousers",
+      "color": "Grey",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6141215012967142
+    },
+    {
+      "type": "trousers",
+      "color": "Olive",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6106551750294205
+    },
+    {
+      "type": "vest",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6520834335783237
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6474913362436685
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6463393497170948
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6445319884787116
+    },
+    {
+      "type": "vest",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6440383591171848
+    },
+    {
+      "type": "vest_dress",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6137689538097707
+    },
+    {
+      "type": "vest_dress",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6080990192975531
+    },
+    {
+      "type": "vest_dress",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6012503136212711
+    },
+    {
+      "type": "vest_dress",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6003521696277027
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.660811592385368
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6178047588287277
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6157402196208488
+    },
+    {
+      "type": "trousers",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6031627438104892
+    },
+    {
+      "type": "trousers",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6013886568884765
+    },
+    {
+      "type": "vest",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6646877501411607
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6594501623526766
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6497352218799595
+    },
+    {
+      "type": "vest",
+      "color": "Red",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6491929459634412
+    },
+    {
+      "type": "vest",
+      "color": "Black",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6481581527255285
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.611625391871586
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6595264812570821
+    },
+    {
+      "type": "trousers",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6168150129892723
+    },
+    {
+      "type": "trousers",
+      "color": "Khaki",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6153254594058586
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6148018801987643
+    },
+    {
+      "type": "trousers",
+      "color": "Navy Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6097307737302857
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6356900609621079
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6313728387180222
+    },
+    {
+      "type": "vest",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6311762122202523
+    },
+    {
+      "type": "vest",
+      "color": "Navy Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6296032743602143
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6220472554803096
+    },
+    {
+      "type": "trousers",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6575122481977432
+    },
+    {
+      "type": "trousers",
+      "color": "Off White",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6282276573056821
+    },
+    {
+      "type": "trousers",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6227160104880105
+    },
+    {
+      "type": "trousers",
+      "color": "Tan",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6221439069266602
+    },
+    {
+      "type": "trousers",
+      "color": "Navy Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6172990751781634
+    },
+    {
+      "type": "vest",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6435192952424833
+    },
+    {
+      "type": "vest",
+      "color": "Green",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.641650510236961
+    },
+    {
+      "type": "vest",
+      "color": "Navy Blue",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6400500283244338
+    },
+    {
+      "type": "vest",
+      "color": "Pink",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.635796805489042
+    },
+    {
+      "type": "vest",
+      "color": "Khaki",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6335035341618528
+    },
+    {
+      "type": "skirt",
+      "color": "PINK",
+      "matched_product_id": "unknown",
+      "match_type": "similar",
+      "confidence": 0.6280095464307455
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flickd - Video Processing</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .drop-zone {
+            border: 2px dashed #4a5568;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .drop-zone:hover {
+            border-color: #2d3748;
+            background-color: #f7fafc;
+        }
+        .drop-zone.dragover {
+            border-color: #4299e1;
+            background-color: #ebf8ff;
+        }
+        .loading {
+            display: none;
+        }
+        .loading.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Flickd</h1>
+            <p class="text-gray-600">Upload a video to process it with AI</p>
+        </header>
+
+        <main class="max-w-2xl mx-auto">
+            <!-- Upload Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div id="drop-zone" class="drop-zone mb-4">
+                    <div class="text-gray-600">
+                        <svg class="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        <p class="text-lg">Drag and drop your video here</p>
+                        <p class="text-sm">or</p>
+                        <button id="browse-button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            Browse Files
+                        </button>
+                        <input type="file" id="file-input" class="hidden" accept="video/*">
+                    </div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loading" class="loading items-center justify-center space-x-2">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                    <span class="text-gray-600">Processing video...</span>
+                </div>
+
+                <!-- Results Section -->
+                <div id="results" class="hidden">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Processing Results</h2>
+                    <div class="space-y-4">
+                        <!-- Vibe -->
+                        <div class="bg-gray-50 rounded p-4">
+                            <h3 class="font-medium text-gray-700 mb-2">Detected Vibe</h3>
+                            <p id="vibe-result" class="text-gray-600"></p>
+                        </div>
+
+                        <!-- Detected Objects -->
+                        <div class="bg-gray-50 rounded p-4">
+                            <h3 class="font-medium text-gray-700 mb-2">Detected Objects</h3>
+                            <div id="objects-result" class="space-y-2"></div>
+                        </div>
+
+                        <!-- Matched Products -->
+                        <div class="bg-gray-50 rounded p-4">
+                            <h3 class="font-medium text-gray-700 mb-2">Matched Products</h3>
+                            <div id="products-result" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // DOM Elements
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const browseButton = document.getElementById('browse-button');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const vibeResult = document.getElementById('vibe-result');
+        const objectsResult = document.getElementById('objects-result');
+        const productsResult = document.getElementById('products-result');
+
+        // Event Listeners
+        browseButton.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+        dropZone.addEventListener('dragover', handleDragOver);
+        dropZone.addEventListener('dragleave', handleDragLeave);
+        dropZone.addEventListener('drop', handleDrop);
+
+        // Handle file selection
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        // Handle drag and drop
+        function handleDragOver(event) {
+            event.preventDefault();
+            dropZone.classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            dropZone.classList.remove('dragover');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            dropZone.classList.remove('dragover');
+            const file = event.dataTransfer.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        // Process the video file
+        async function processFile(file) {
+            try {
+                // Show loading state
+                loading.classList.add('active');
+                results.classList.add('hidden');
+
+                // Create form data
+                const formData = new FormData();
+                formData.append('video', file);
+
+                // Send request
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Processing failed');
+                }
+
+                const data = await response.json();
+                displayResults(data);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error processing video. Please try again.');
+            } finally {
+                loading.classList.remove('active');
+            }
+        }
+
+        // Display results
+        function displayResults(data) {
+            // Show results section
+            results.classList.remove('hidden');
+
+            // Display vibe
+            vibeResult.textContent = data.vibe;
+
+            // Display detected objects
+            objectsResult.innerHTML = data.detections.map(detection => `
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">${detection.class_name}</span>
+                    <span class="text-gray-500">${(detection.confidence * 100).toFixed(1)}%</span>
+                </div>
+            `).join('');
+
+            // Display matched products
+            productsResult.innerHTML = data.matched_products.map(product => `
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">${product.name}</span>
+                    <span class="text-gray-500">${(product.match_score * 100).toFixed(1)}%</span>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,247 @@
+from ultralytics import YOLO
+import cv2
+import numpy as np
+from typing import List, Dict, Any
+import json
+import torch
+import logging
+
+class ObjectDetector:
+    def __init__(self):
+        """Initialize the object detector with improved model and logging."""
+        try:
+            # Initialize logging
+            logging.basicConfig(level=logging.INFO)
+            self.logger = logging.getLogger(__name__)
+            
+            # Load YOLOv8x model for better accuracy
+            self.model = YOLO('yolov8x.pt')
+            self.logger.info("YOLOv8x model loaded successfully")
+            
+            # Define fashion-related classes
+            self.fashion_classes = {
+                0: 'person',  # For full body detection
+                15: 'handbag',
+                16: 'backpack',
+                27: 'handbag',
+                28: 'umbrella',
+                31: 'handbag',
+                32: 'backpack',
+                33: 'umbrella',
+                44: 'bottle',
+                45: 'wine glass',
+                46: 'cup',
+                47: 'fork',
+                48: 'knife',
+                49: 'spoon',
+                50: 'bowl',
+                51: 'banana',
+                52: 'apple',
+                53: 'sandwich',
+                54: 'orange',
+                55: 'broccoli',
+                56: 'carrot',
+                57: 'hot dog',
+                58: 'pizza',
+                59: 'donut',
+                60: 'cake',
+                61: 'chair',
+                62: 'couch',
+                63: 'potted plant',
+                64: 'bed',
+                65: 'dining table',
+                66: 'toilet',
+                67: 'tv',
+                68: 'laptop',
+                69: 'mouse',
+                70: 'remote',
+                71: 'keyboard',
+                72: 'cell phone',
+                73: 'microwave',
+                74: 'oven',
+                75: 'toaster',
+                76: 'sink',
+                77: 'refrigerator',
+                78: 'book',
+                79: 'clock',
+                80: 'vase',
+                81: 'scissors',
+                82: 'teddy bear',
+                83: 'hair drier',
+                84: 'toothbrush'
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error initializing ObjectDetector: {e}")
+            raise
+        
+    def extract_frames(self, video_path: str, frame_interval: int = 5) -> List[np.ndarray]:  # More frequent sampling
+        """Extract frames from video at specified intervals."""
+        frames = []
+        cap = cv2.VideoCapture(video_path)
+        frame_count = 0
+        
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break
+                
+            if frame_count % frame_interval == 0:
+                # Enhance frame quality
+                frame = cv2.detailEnhance(frame, sigma_s=10, sigma_r=0.15)
+                frames.append(frame)
+            frame_count += 1
+            
+        cap.release()
+        return frames
+    
+    def post_process_bbox(self, x1: float, y1: float, x2: float, y2: float, frame_shape: tuple) -> tuple:
+        """Post-process bounding box coordinates for better accuracy."""
+        # Ensure coordinates are within frame boundaries
+        x1 = max(0, x1)
+        y1 = max(0, y1)
+        x2 = min(frame_shape[1], x2)
+        y2 = min(frame_shape[0], y2)
+        
+        # Ensure minimum size
+        min_size = 50
+        if x2 - x1 < min_size:
+            center_x = (x1 + x2) / 2
+            x1 = center_x - min_size / 2
+            x2 = center_x + min_size / 2
+        if y2 - y1 < min_size:
+            center_y = (y1 + y2) / 2
+            y1 = center_y - min_size / 2
+            y2 = center_y + min_size / 2
+            
+        # Ensure aspect ratio is reasonable
+        aspect_ratio = (x2 - x1) / (y2 - y1)
+        if aspect_ratio > 2:  # Too wide
+            center_x = (x1 + x2) / 2
+            width = (y2 - y1) * 2
+            x1 = center_x - width / 2
+            x2 = center_x + width / 2
+        elif aspect_ratio < 0.5:  # Too tall
+            center_y = (y1 + y2) / 2
+            height = (x2 - x1) * 2
+            y1 = center_y - height / 2
+            y2 = center_y + height / 2
+            
+        return x1, y1, x2, y2
+    
+    def detect_objects(self, frame: np.ndarray) -> List[Dict[str, Any]]:
+        """Detect objects in a frame with improved accuracy and post-processing."""
+        try:
+            # Enhance frame quality
+            frame = cv2.detailEnhance(frame, sigma_s=10, sigma_r=0.15)
+            
+            # Run YOLOv8 inference
+            results = self.model(frame, conf=0.3)  # Lower confidence threshold for more detections
+            
+            detections = []
+            for result in results:
+                boxes = result.boxes
+                for box in boxes:
+                    # Get box coordinates
+                    x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
+                    confidence = float(box.conf[0].cpu().numpy())
+                    class_id = int(box.cls[0].cpu().numpy())
+                    
+                    # Only process fashion-related classes
+                    if class_id in self.fashion_classes:
+                        # Post-process bounding box
+                        x1, y1, x2, y2 = self.post_process_bbox(x1, y1, x2, y2, frame.shape)
+                        
+                        # Get class name
+                        class_name = self.fashion_classes[class_id]
+                        
+                        # Add detection
+                        detections.append({
+                            'frame': frame,
+                            'frame_number': 0,  # Will be updated by pipeline
+                            'bbox': [x1, y1, x2, y2],
+                            'class_name': class_name,
+                            'confidence': confidence
+                        })
+            
+            # Apply temporal consistency if we have previous detections
+            if hasattr(self, 'previous_detections'):
+                detections = self.apply_temporal_consistency(detections)
+            
+            # Update previous detections
+            self.previous_detections = detections
+                
+            return detections
+            
+        except Exception as e:
+            self.logger.error(f"Error detecting objects: {e}")
+            return []
+    
+    def process_video(self, video_path: str) -> List[Dict[str, Any]]:
+        """Process entire video and return all detections with temporal consistency."""
+        frames = self.extract_frames(video_path)
+        all_detections = []
+        prev_detections = None
+        
+        for frame_idx, frame in enumerate(frames):
+            detections = self.detect_objects(frame)
+            
+            # Apply temporal consistency
+            if prev_detections is not None:
+                detections = self.apply_temporal_consistency(detections, prev_detections)
+            
+            for detection in detections:
+                detection["frame_number"] = frame_idx
+            all_detections.extend(detections)
+            prev_detections = detections
+        
+        return all_detections 
+    
+    def apply_temporal_consistency(self, current_detections: List[Dict], prev_detections: List[Dict]) -> List[Dict]:
+        """Apply temporal consistency to reduce flickering and improve stability."""
+        if not prev_detections:
+            return current_detections
+            
+        consistent_detections = []
+        for curr_det in current_detections:
+            best_iou = 0
+            best_prev_det = None
+            
+            for prev_det in prev_detections:
+                if curr_det["class_name"] == prev_det["class_name"]:
+                    iou = self.calculate_iou(curr_det["bbox"], prev_det["bbox"])
+                    if iou > best_iou:
+                        best_iou = iou
+                        best_prev_det = prev_det
+            
+            # If good temporal match, use average of current and previous detection
+            if best_iou > 0.5:
+                curr_det["confidence"] = (curr_det["confidence"] + best_prev_det["confidence"]) / 2
+                curr_det["bbox"] = self.average_bbox(curr_det["bbox"], best_prev_det["bbox"])
+            
+            consistent_detections.append(curr_det)
+            
+        return consistent_detections
+    
+    def calculate_iou(self, bbox1: List[float], bbox2: List[float]) -> float:
+        """Calculate Intersection over Union between two bounding boxes."""
+        x1 = max(bbox1[0], bbox2[0])
+        y1 = max(bbox1[1], bbox2[1])
+        x2 = min(bbox1[2], bbox2[2])
+        y2 = min(bbox1[3], bbox2[3])
+        
+        intersection = max(0, x2 - x1) * max(0, y2 - y1)
+        area1 = (bbox1[2] - bbox1[0]) * (bbox1[3] - bbox1[1])
+        area2 = (bbox2[2] - bbox2[0]) * (bbox2[3] - bbox2[1])
+        union = area1 + area2 - intersection
+        
+        return intersection / union if union > 0 else 0
+    
+    def average_bbox(self, bbox1: List[float], bbox2: List[float]) -> List[float]:
+        """Average two bounding boxes."""
+        return [
+            (bbox1[0] + bbox2[0]) / 2,
+            (bbox1[1] + bbox2[1]) / 2,
+            (bbox1[2] + bbox2[2]) / 2,
+            (bbox1[3] + bbox2[3]) / 2
+        ] 
