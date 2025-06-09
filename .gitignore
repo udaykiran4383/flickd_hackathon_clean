@@ -22,68 +22,20 @@ wheels/
 
 # Virtual Environment
 venv/
-env/
 ENV/
-.env
-.venv
-env.bak/
-venv.bak/
-**/venv/
-**/env/
-**/.env/
-**/.venv/
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 
 # Project specific
-data/product_embeddings.npy
-data/updated_catalog.csv
+cache/
 outputs/
-*.pt
-*.pth
-*.onnx
-*.bin
-*.h5
-*.hdf5
-*.ckpt
-*.pkl
-
-# Large model files
-yolov5x.pt
-yolov8x.pt
-*.dylib
-libtorch_cpu.dylib
-libtorch_cuda.dylib
-
-# Logs
 *.log
-logs/
-log/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb
-
-# Coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# pytest
-.pytest_cache/

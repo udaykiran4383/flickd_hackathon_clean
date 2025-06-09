@@ -78,27 +78,56 @@ class FlickdPipeline:
                         "type": product["type"],
                         "color": product.get("color", "unknown"),
                         "match_type": product["match_type"].lower(),
-                        "matched_product_id": product["id"],
+                        "matched_product_id": product["matched_product_id"],
                         "confidence": product["similarity"]
                     }
                     formatted_products.append(formatted_product)
                 
                 results["products"] = formatted_products
             
-            # Classify vibes
+            # Classify vibes from both text and products
+            text_vibes = []
+            product_vibes = []
+            
+            # Get vibes from text if available
             if caption or hashtags:
                 if self.debug:
                     logger.info("Classifying vibes from caption and hashtags")
-                vibes = self.vibe_classifier.process_caption(caption, hashtags)
+                text_vibes = self.vibe_classifier.process_caption(caption, hashtags)
                 if self.debug:
-                    logger.info(f"Detected vibes: {vibes}")
-                
-                # Format vibes according to required output
-                results["vibes"] = [vibe["vibe"] for vibe in vibes]
-            else:
+                    logger.info(f"Detected vibes from text: {text_vibes}")
+            
+            # Get vibes from products
+            if results["products"]:
                 if self.debug:
-                    logger.warning("No caption or hashtags provided for vibe classification")
-                results["vibes"] = []
+                    logger.info("Classifying vibes from products")
+                product_vibes = self.vibe_classifier.process_products(results["products"])
+                if self.debug:
+                    logger.info(f"Detected vibes from products: {product_vibes}")
+            
+            # Combine and deduplicate vibes
+            all_vibes = {}
+            
+            # Add text-based vibes with their confidence scores
+            for vibe in text_vibes:
+                all_vibes[vibe["vibe"]] = vibe["confidence"]
+            
+            # Add or update product-based vibes
+            for vibe in product_vibes:
+                if vibe["vibe"] in all_vibes:
+                    # If vibe exists, take the higher confidence score
+                    all_vibes[vibe["vibe"]] = max(all_vibes[vibe["vibe"]], vibe["confidence"])
+                else:
+                    all_vibes[vibe["vibe"]] = vibe["confidence"]
+            
+            # Sort vibes by confidence and take top 3
+            sorted_vibes = sorted(all_vibes.items(), key=lambda x: x[1], reverse=True)
+            results["vibes"] = [vibe for vibe, _ in sorted_vibes[:3]]
+            
+            if not results["vibes"]:
+                if self.debug:
+                    logger.warning("No vibes detected from either text or products")
+                results["vibes"] = ["Clean Girl"]  # Default vibe if none detected
             
             return results
             

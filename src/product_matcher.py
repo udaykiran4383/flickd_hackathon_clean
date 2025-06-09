@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
 
 class ProductMatcher:
     # Similarity thresholds
-    EXACT_MATCH_THRESHOLD = 0.8
-    SIMILAR_MATCH_THRESHOLD = 0.6
+    EXACT_MATCH_THRESHOLD = 0.9    # Exact match threshold (>0.9)
+    SIMILAR_MATCH_THRESHOLD = 0.75  # Similar match threshold (0.75-0.9)
     
     # Image size variations to try
     IMAGE_SIZES = ['512x', '800x', '1600x', '2048x', 'master']
@@ -49,6 +49,16 @@ class ProductMatcher:
             # Load product metadata from catalog
             catalog_path = 'data/catalog.csv'
             self.product_metadata = pd.read_csv(catalog_path).to_dict('records')
+            # Extract color from product_tags and add as 'color' field
+            for product in self.product_metadata:
+                tags = product.get('product_tags', '')
+                # Find all Colour:<color> tags (handles multiple colors)
+                color_matches = re.findall(r'Colour:([^,]+)', tags)
+                if color_matches:
+                    # If multiple colors, join with '/'
+                    product['color'] = '/'.join([c.strip() for c in color_matches])
+                else:
+                    product['color'] = 'Unknown'
             
             # Verify dimensions match
             if self.product_embeddings.shape[1] != 512:
@@ -178,6 +188,10 @@ class ProductMatcher:
             
             for obj in objects:
                 try:
+                    # Skip if confidence is too low
+                    if obj.get('confidence', 0) < 0.3:
+                        continue
+                        
                     # Handle person detections
                     if obj['type'] == 'person':
                         # Extract clothing region from person
@@ -196,54 +210,44 @@ class ProductMatcher:
                         # Normalize embedding
                         object_embedding = object_embedding / np.linalg.norm(object_embedding)
                     
-                    # Search in FAISS index for top 10 matches (increased from 5)
-                    k = 10
-                    distances, indices = self.index.search(object_embedding, k)
+                    # Search in FAISS index for top 5 matches
+                    k = 5
+                    distances, indices = self.index.search(object_embedding.reshape(1, -1), k)
                     
-                    # Process each match
-                    for i in range(k):
-                        # Calculate similarity score (convert L2 distance to similarity)
-                        similarity = 1 / (1 + distances[0][i])
-                        
-                        # Get match type
+                    # Get matches above threshold
+                    for dist, idx in zip(distances[0], indices[0]):
+                        similarity = 1 - (dist / 2)  # Convert distance to similarity score
                         match_type = self._get_match_type(similarity)
                         
-                        # Only include matches above threshold
                         if match_type != "No Match":
-                            product_idx = indices[0][i]
-                            product = self.product_metadata[product_idx]
-                            
-                            # Extract color from product tags
-                            color = "unknown"
-                            if 'product_tags' in product and pd.notna(product['product_tags']):
-                                tags = product['product_tags'].split(', ')
-                                for tag in tags:
-                                    if tag.startswith('Colour:'):
-                                        color = tag.split(':')[1]
-                                        break
-                            
-                            # Add match details
-                            product.update({
-                                'match_type': match_type,
-                                'similarity': float(similarity),
-                                'detection_confidence': obj['confidence'],
-                                'frame_number': obj['frame_number'],
-                                'detected_type': obj['type'],
-                                'color': color
+                            product = self.product_metadata[idx]
+                            matched_products.append({
+                                'type': obj['type'],
+                                'color': product.get('color', 'Unknown'),
+                                'matched_product_id': product.get('id'),
+                                'match_type': match_type.lower().replace(' ', '_'),
+                                'confidence': float(similarity)
                             })
-                            
-                            matched_products.append(product)
-                            logger.info(f"Matched {obj['type']} to {product['product_type']} with {match_type} (similarity: {similarity:.3f})")
                     
                 except Exception as e:
-                    logger.warning(f"Error matching object: {str(e)}")
+                    logger.warning(f"Error matching product for object {obj.get('type', 'unknown')}: {str(e)}")
                     continue
             
-            logger.info(f"Matched {len(matched_products)} products")
-            return matched_products
+            # Sort by confidence and remove duplicates
+            matched_products = sorted(matched_products, key=lambda x: x['confidence'], reverse=True)
+            seen_products = set()
+            unique_products = []
+            
+            for product in matched_products:
+                product_key = f"{product['type']}_{product['matched_product_id']}"
+                if product_key not in seen_products:
+                    seen_products.add(product_key)
+                    unique_products.append(product)
+            
+            return unique_products
             
         except Exception as e:
-            logger.error(f"Error matching products: {str(e)}")
+            logger.error(f"Error in match_products: {str(e)}")
             return []
 
     def _compute_catalog_embeddings(self) -> np.ndarray:
@@ -333,7 +337,7 @@ class ProductMatcher:
             for idx in top_indices:
                 if similarities[idx] > 0.5:  # Only include high confidence matches
                     match = {
-                        'product_id': self.product_metadata[idx]['product_id'],
+                        'product_id': self.product_metadata[idx]['id'],
                         'confidence': float(similarities[idx])
                     }
                     matches.append(match)
@@ -490,71 +494,28 @@ class ProductMatcher:
 
     def find_matches(self, query_embedding: np.ndarray, object_type: str, 
                     top_k: int = 5) -> List[Dict[str, Any]]:
-        """Find matching products for a detected object."""
+        """Find matches for a query embedding."""
         try:
-            # Ensure query embedding is normalized
-            query_embedding = query_embedding / np.linalg.norm(query_embedding)
-            
-            # Verify dimensions match
-            if query_embedding.shape[1] != self.product_embeddings.shape[1]:
-                raise ValueError(f"Query embedding dimension mismatch. Expected {self.product_embeddings.shape[1]}, got {query_embedding.shape[1]}")
-            
-            # Search for similar products using L2 distance
-            distances, indices = self.index.search(query_embedding, top_k)
+            # Search in FAISS index
+            distances, indices = self.index.search(query_embedding.reshape(1, -1), top_k)
             
             if self.debug:
                 logger.info(f"Search results - distances: {distances}, indices: {indices}")
             
             matches = []
             for dist, idx in zip(distances[0], indices[0]):
-                # Convert L2 distance to similarity score (1 / (1 + distance))
-                similarity = 1 / (1 + dist)
-                
-                # Skip if similarity is too low
-                if similarity < self.SIMILAR_MATCH_THRESHOLD:
-                    continue
-                    
-                # Get product metadata
-                if idx >= len(self.product_metadata):
-                    logger.warning(f"Index {idx} out of bounds for product metadata")
-                    continue
-                    
                 product = self.product_metadata[idx]
-                
-                # Skip if product type doesn't match (if category exists)
-                if 'category' in product and product['category'] != object_type:
-                    continue
-                
-                # Determine match type
-                match_type = "exact" if similarity >= self.EXACT_MATCH_THRESHOLD else "similar"
-                
-                # Get color from product tags if available
-                color = "unknown"
-                if 'product_tags' in product and pd.notna(product['product_tags']):
-                    tags = product['product_tags'].split(', ')
-                    for tag in tags:
-                        if tag.startswith('Colour:'):
-                            color = tag.split(':')[1]
-                            break
-                
                 matches.append({
-                    "type": object_type,  # Use detected object type
-                    "color": color,
-                    "matched_product_id": product.get('product_id', 'unknown'),
-                    "match_type": match_type,
-                    "confidence": float(similarity)
+                    'matched_product_id': product.get('id'),
+                    'color': product.get('color', 'Unknown'),
+                    'distance': float(dist)  # Store the actual distance
                 })
             
             if self.debug:
                 logger.info(f"Found {len(matches)} matches for {object_type}")
-                
+            
             return matches
             
         except Exception as e:
-            logger.error(f"Error finding product matches: {str(e)}")
-            if self.debug:
-                logger.error(f"Query embedding shape: {query_embedding.shape}")
-                logger.error(f"Product embeddings shape: {self.product_embeddings.shape}")
-                logger.error(f"Product metadata length: {len(self.product_metadata)}")
-                logger.error(f"Index dimension: {self.index.d}")
+            logger.error(f"Error finding matches: {str(e)}")
             return [] 

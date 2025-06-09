@@ -1,97 +1,180 @@
-# Flickd AI Hackathon
+# Flickd - Fashion Video Analysis Pipeline
 
-A video-based fashion item detection and vibe classification system.
+A powerful pipeline for analyzing fashion videos to detect clothing items, match them with products, and classify aesthetic vibes.
 
-## Features
+## Project Journey & Insights
 
-- Video frame extraction
-- Fashion item detection using DeepFashion2 YOLOv8
-- Product matching using CLIP embeddings
-- Vibe classification using rule-based NLP
-- JSON output generation
+### Initial Challenges
+- Started with basic object detection using YOLO, but needed more specialized fashion detection
+- Found DeepFashion2 dataset and model which was better suited for clothing detection
+- Realized we needed both visual and semantic understanding for accurate product matching
+- Discovered CLIP model's effectiveness for fashion item matching
 
-## Setup
+### Key Learnings
+1. **Vibe Classification**
+   - Initially used only text-based classification (captions/hashtags)
+   - Realized products themselves carry strong aesthetic signals
+   - Combined both approaches for more accurate vibe detection
+   - Created a comprehensive vibe dictionary with product attributes
 
-1. Create a virtual environment:
+2. **Product Matching**
+   - Started with simple color/type matching
+   - Evolved to use CLIP embeddings for semantic understanding
+   - Added confidence thresholds to ensure quality matches
+   - Implemented duplicate detection to avoid redundant suggestions
+
+3. **Performance Optimization**
+   - Cached CLIP embeddings for faster processing
+   - Implemented batch processing for video frames
+   - Added confidence thresholds to reduce false positives
+
+## Project Structure
+
+```
+flickd/
+├── src/                    # Core functionality
+│   ├── pipeline.py         # Main pipeline implementation
+│   ├── vibe_classifier.py  # Vibe classification logic
+│   ├── product_matcher.py  # Product matching logic
+│   ├── object_detector.py  # Object detection logic
+│   ├── clip_processor.py   # CLIP model processing
+│   └── __init__.py
+├── data/                   # Data directory
+│   ├── videos/            # Input videos
+│   └── catalog/           # Product catalog
+├── outputs/               # Generated results
+├── tests/                 # Test files
+└── requirements.txt       # Project dependencies
+```
+
+## Setup Instructions
+
+### Prerequisites
+- Python 3.9+
+- CUDA-capable GPU (recommended)
+- 8GB+ RAM
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/flickd.git
+cd flickd
+```
+
+2. Create and activate virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-2. Install dependencies:
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Download the DeepFashion2 model:
+4. Download required models:
 ```bash
-wget https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt
+# DeepFashion2 YOLO model
+wget https://github.com/yourusername/flickd/releases/download/v1.0/deepfashion2_yolov8s-seg.pt
 ```
 
-4. Pre-compute product embeddings:
-```bash
-python scripts/precompute_embeddings.py
-```
+### Configuration
+
+1. Prepare your product catalog:
+   - Place product images in `data/catalog/`
+   - Ensure images are clear and well-lit
+   - Include product metadata (type, color, style)
+
+2. Configure API settings (if using API):
+   - Update `API_URL` in `test_api.py`
+   - Set appropriate rate limits
 
 ## Usage
 
-1. Place your videos in the `videos/` directory
-2. Run the test script:
+### Basic Usage
+
+```python
+from src.pipeline import FlickdPipeline
+
+# Initialize pipeline
+pipeline = FlickdPipeline(
+    vibes_list_path="data/vibeslist.json",
+    catalog_path="data/catalog",
+    debug=True
+)
+
+# Process a video
+results = pipeline.process_video(
+    video_path="data/videos/example.mp4",
+    caption="Summer vibes with my new outfit!",
+    hashtags=["#fashion", "#summer"]
+)
+
+print(results)
+```
+
+### API Usage
+
 ```bash
-python test_multiple_videos.py
+# Start the API server
+python -m src.api.server
+
+# Test the API
+python test_api.py
 ```
 
-3. Check the results in `test_results/`
+## Common Mistakes & Solutions
 
-## Project Structure
+1. **Model Loading Issues**
+   - Problem: CUDA out of memory
+   - Solution: Reduce batch size in `object_detector.py`
+   - Problem: Model not found
+   - Solution: Check model path and download if missing
 
-```
-.
-├── data/
-│   ├── catalog.csv
-│   ├── vibes_list.json
-│   └── product_embeddings.json
-├── src/
-│   ├── object_detector.py
-│   ├── clip_processor.py
-│   ├── vibe_classifier.py
-│   └── product_matcher.py
-├── scripts/
-│   └── precompute_embeddings.py
-├── test_videos/
-│   └── *.mp4
-├── test_results/
-│   └── *.json
-├── requirements.txt
-└── README.md
-```
+2. **Product Matching Issues**
+   - Problem: Low confidence matches
+   - Solution: Adjust thresholds in `product_matcher.py`
+   - Problem: Duplicate products
+   - Solution: Check `max_duplicate_distance` setting
 
-## Models Used
+3. **Vibe Classification Issues**
+   - Problem: Inconsistent vibe detection
+   - Solution: Update vibe keywords in `vibe_classifier.py`
+   - Problem: Missing vibes
+   - Solution: Check product attributes in vibe definitions
 
-- DeepFashion2 YOLOv8 (mAP₅₀ = 0.849)
-- CLIP ViT-B/32 for image embeddings
-- FAISS for fast similarity search
+## Performance Tips
 
-## Output Format
+1. **Video Processing**
+   - Use shorter videos (15-30 seconds)
+   - Ensure good lighting and clear shots
+   - Avoid rapid movements
 
-```json
-{
-  "video_id": "reel_001",
-  "vibes": ["Coquette", "Clean Girl"],
-  "products": [
-    {
-      "type": "top",
-      "color": "white",
-      "matched_product_id": "prod_002",
-      "match_type": "exact",
-      "confidence": 0.93
-    }
-  ]
-}
-```
+2. **Product Catalog**
+   - Use high-quality product images
+   - Include multiple angles
+   - Maintain consistent background
 
-## Notes
+3. **System Optimization**
+   - Use GPU acceleration
+   - Enable caching for embeddings
+   - Monitor memory usage
 
-- The pipeline handles JSON serialization of numpy types automatically
-- Videos are processed in memory and temporary files are cleaned up
-- The API supports CORS for frontend integration
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- DeepFashion2 dataset and model
+- CLIP model by OpenAI
+- YOLOv8 by Ultralytics
